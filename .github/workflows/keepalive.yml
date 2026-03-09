@@ -13,6 +13,6 @@ jobs:
       - name: Ping Replit Danmu API
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://cd48fdfa-9a05-48ec-8ce1-42ae0f8f7a7b-00-p06hkl5snzzo.riker.replit.dev/danmu/api/v2'
+          url: 'https://cd48fdfa-9a05-48ec-8ce1-42ae0f8f7a7b-00-p06hkl5snzzo.riker.replit.dev/danmu'
           method: 'GET'
           timeout: 10000 # 超时时间10秒，避免卡任务
