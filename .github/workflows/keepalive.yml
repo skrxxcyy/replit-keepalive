@@ -1,17 +1,17 @@
 name: Replit Keep Alive
 
 on:
-  workflow_dispatch:  # 仅保留手动触发，启动后自动循环
+  workflow_dispatch:
 
 jobs:
   ping-replit-loop:
     runs-on: ubuntu-latest
     steps:
-      - name: 无限循环保活
+      - name: 每3分钟搜索《真爱如血 第三季》（保活+触发接口）
         run: |
           while true; do
-            echo "[$(date)] 正在访问 Replit 地址保活..."
-            curl --max-time 30 --retry 3 "https://cd48fdfa-9a05-48ec-8ce1-42ae0f8f7a7b-00-p06hkl5snzzo.riker.replit.dev/danmu"
-            echo "[$(date)] 等待3分钟后再次执行..."
-            sleep 180  # 3分钟循环，验证后可改为900秒（15分钟）
+            echo "[$(date)] 正在搜索动漫..."
+            curl --max-time 30 --retry 3 "https://cd48fdfa-9a05-48ec-8ce1-42ae0f8f7a7b-00-p06hkl5snzzo.riker.replit.dev/api/v2/api/v2/search/anime?keyword=真爱如血 第三季"
+            echo "[$(date)] 搜索完成，等待3分钟后再次执行..."
+            sleep 180  # 验证后可改为900秒（15分钟）
           done
