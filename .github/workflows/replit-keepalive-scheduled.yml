@@ -1,0 +1,30 @@
+name: Replit Keep Alive
+
+# 定时规则：每15分钟执行一次（如需调整，把*/15改成*/10=10分钟，*/5=5分钟）
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:  # 保留手动触发，方便测试/应急
+
+jobs:
+  ping-replit-api:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1  # 强制1分钟超时，避免无效耗额度
+    steps:
+      - name: 访问Replit动漫搜索接口保活
+        run: |
+          # 打印格式化时间，便于日志排查
+          echo "[$(date +'%Y-%m-%d %H:%M:%S')] 开始执行保活请求..."
+          
+          # 你的目标访问地址（已填好）
+          TARGET_URL="https://cd48fdfa-9a05-48ec-8ce1-42ae0f8f7a7b-00-p06hkl5snzzo.riker.replit.dev/danmu/api/v2/search/anime?keyword=%E7%9C%9F%E7%88%B1%E5%A6%82%E8%A1%80"
+          
+          # 发送请求（超时30秒，重试3次，每次间隔5秒）
+          curl --max-time 30 \
+               --retry 3 \
+               --retry-delay 5 \
+               -v \
+               "$TARGET_URL"
+          
+          # 打印完成日志
+          echo -e "\n[$(date +'%Y-%m-%d %H:%M:%S')] 保活请求执行完成！"
