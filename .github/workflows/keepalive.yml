@@ -2,7 +2,7 @@ name: Replit Keepalive
 
 on:
   schedule:
-    # 每15分钟执行一次，低于Replit 30分钟休眠阈值
+    # 每15分钟执行一次，低于  Replit 30分钟休眠阈值
     - cron: '*/15 * * * *'
   workflow_dispatch: # 保留手动触发功能
 
