@@ -1,25 +1,17 @@
 name: Replit Keep Alive
-# 触发规则：手动启动 + 运行完成后自动触发下一次
+
 on:
-  workflow_dispatch:        # 手动触发开关（首次启动用）
-  workflow_run:             # 上一次运行完成后自动触发
-    workflows: ["Replit Keep Alive"]
-    types: [completed]
+  workflow_dispatch:  # 仅保留手动触发，启动后自动循环
 
 jobs:
-  ping-replit:
+  ping-replit-loop:
     runs-on: ubuntu-latest
     steps:
-      # 核心：访问你的Replit弹幕API地址保活
-      - name: 访问Replit地址保活
+      - name: 无限循环保活
         run: |
-          curl --max-time 30 --retry 3 "https://cd48fdfa-9a05-48ec-8ce1-42ae0f8f7a7b-00-p06hkl5snzzo.riker.replit.dev/danmu"
-
-      # 延迟3分钟后，自动触发下一次运行
-      - name: 延迟3分钟触发下一次
-        if: success()  # 仅上一步成功时执行
-        run: |
-          sleep 180  # 180秒 = 3分钟（验证后改900秒=15分钟）
-          gh workflow run "Replit Keep Alive"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 自动生成，无需配置
+          while true; do
+            echo "[$(date)] 正在访问 Replit 地址保活..."
+            curl --max-time 30 --retry 3 "https://cd48fdfa-9a05-48ec-8ce1-42ae0f8f7a7b-00-p06hkl5snzzo.riker.replit.dev/danmu"
+            echo "[$(date)] 等待3分钟后再次执行..."
+            sleep 180  # 3分钟循环，验证后可改为900秒（15分钟）
+          done
