@@ -2,9 +2,9 @@ name: Replit Keepalive
 
 on:
   schedule:
-    # 每15分钟执行一次（UTC时间，远低于Replit 30分钟休眠阈值）
+    # 每15分钟执行一次，低于Replit 30分钟休眠阈值
     - cron: '*/15 * * * *'
-  workflow_dispatch: # 允许手动触发保活
+  workflow_dispatch: # 保留手动触发功能
 
 jobs:
   keepalive:
@@ -15,4 +15,4 @@ jobs:
         with:
           url: 'https://cd48fdfa-9a05-48ec-8ce1-42ae0f8f7a7b-00-p06hkl5snzzo.riker.replit.dev/danmu'
           method: 'GET'
-          timeout: 10000 # 超时时间10秒，避免卡任务
+          timeout: 10000
